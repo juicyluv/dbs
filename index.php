@@ -1,3 +1,9 @@
+<?php 
+
+require_once("db.php");
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,7 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Кинотеатр Heisenberg</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
     <nav>
@@ -22,13 +28,20 @@
     <main class="flex">
         <header class="flex">
             <h2 class="title">Кинотеатр Heisenberg</h2>
-            <img src="/img/cinema.jpg" alt="">
+            <img src="./img/cinema.jpg" alt="">
         </header>
         <div class="today">
             <h2>Сегодня в кино</h2>
+            <?php 
+                $result = $pdo->query('SELECT * FROM movie_type');
+
+                while($row = $result->fetchAll(PDO::FETCH_ASSOC)) {
+                    
+                }
+            ?>
             <div class="movies flex">
                 <a href="#" class="movie">
-                    <img src="/img/film.jpg">
+                    <img src="./img/film.jpg">
                     <p class="title">Название Фильма</p>
                     <div class="movie-info">
                         <span class="year">2019,</span>
@@ -37,7 +50,7 @@
                     </div>
                 </a>
                 <a href="#" class="movie">
-                    <img src="/img/film.jpg">
+                    <img src="./img/film.jpg">
                     <p class="title">Название Фильма</p>
                     <div class="movie-info">
                         <span class="year">2019,</span>
@@ -46,7 +59,7 @@
                     </div>
                 </a>
                 <a href="#" class="movie">
-                    <img src="/img/film.jpg">
+                    <img src="./img/film.jpg">
                     <p class="title">Название Фильма</p>
                     <div class="movie-info">
                         <span class="year">2019,</span>
@@ -61,7 +74,7 @@
             <h2>Другие показы</h2>
             <div class="movies flex">
                 <a href="#" class="movie">
-                    <img src="/img/film.jpg">
+                    <img src="./img/film.jpg">
                     <p class="title">Название Фильма</p>
                     <div class="movie-info">
                         <span class="year">2019,</span>
@@ -70,7 +83,7 @@
                     </div>
                 </a>
                 <a href="#" class="movie">
-                    <img src="/img/film.jpg">
+                    <img src="./img/film.jpg">
                     <p class="title">Название Фильма</p>
                     <div class="movie-info">
                         <span class="year">2019,</span>
@@ -79,7 +92,7 @@
                     </div>
                 </a>
                 <a href="#" class="movie">
-                    <img src="/img/film.jpg">
+                    <img src="./img/film.jpg">
                     <p class="title">Название Фильма</p>
                     <div class="movie-info">
                         <span class="year">2019,</span>
@@ -88,7 +101,7 @@
                     </div>
                 </a>
                 <a href="#" class="movie">
-                    <img src="/img/film.jpg">
+                    <img src="./img/film.jpg">
                     <p class="title">Название Фильма</p>
                     <div class="movie-info">
                         <span class="year">2019,</span>
@@ -97,7 +110,7 @@
                     </div>
                 </a>
                 <a href="#" class="movie">
-                    <img src="/img/film.jpg">
+                    <img src="./img/film.jpg">
                     <p class="title">Название Фильма</p>
                     <div class="movie-info">
                         <span class="year">2019,</span>
@@ -106,7 +119,7 @@
                     </div>
                 </a>
                 <a href="#" class="movie">
-                    <img src="/img/film.jpg">
+                    <img src="./img/film.jpg">
                     <p class="title">Название Фильма</p>
                     <div class="movie-info">
                         <span class="year">2019,</span>
@@ -115,7 +128,7 @@
                     </div>
                 </a>
                 <a href="#" class="movie">
-                    <img src="/img/film.jpg">
+                    <img src="./img/film.jpg">
                     <p class="title">Название Фильма</p>
                     <div class="movie-info">
                         <span class="year">2019,</span>
