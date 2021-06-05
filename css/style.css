@@ -15,6 +15,7 @@ body, html {
     background-color: rgb(236, 236, 236);
     display: flex;
     justify-content: center;
+    font-family: Verdana, Geneva, sans-serif;
 }
 
 nav {
@@ -79,18 +80,24 @@ header img {
     z-index: -1;
 }
 
+.space {
+    width: 100%;
+    height: 30px;
+    background-color: rgb(236, 236, 236);
+}
+
 .today {
     width: 100%;
-    height: 400px;
-    background-color: #bbb;
+    background-color: #ddd;
     padding: 0 100px;
+    border: 1px solid #aaa;
 }
 
 .today h2 {
-    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
     font-size: 30px;
+    margin: 15px;
     text-align: center;
-    margin: 5px;
+    font-weight: lighter;
 }
 
 .movies {
@@ -100,8 +107,8 @@ header img {
 }
 
 .movie {
-    width: 200px;
-    margin: 20px 50px;
+    width: 240px;
+    margin: 20px 30px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -113,6 +120,14 @@ header img {
     width: 180px;
     height: auto;
     border-radius: 5px;
+}
+
+.title {
+    font-size: 20px;
+}
+
+.year, .type, .genre {
+    font-size: 14px;
 }
 
 .other {
@@ -140,25 +155,24 @@ header img {
 
 .film-info {
     width: 65%;
-    height: 800px;
     display: flex;
     flex-direction: column;
     margin: 15px;
 }
 
 .film-title {
-    font-size: 55px;
-    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    font-size: 45px;
+    margin-bottom: 10px;
 }
 
 .film-description {
-    font-size: 28px;
+    font-size: 24px;
     padding: 10px 0;
 }
 
 .film-type, .film-genre, .film-year, .film-start,
 .film-duration, .film-price, .film-room {
-    font-size: 22px;
+    font-size: 20px;
     margin: 5px 0;
 }
 
@@ -167,6 +181,8 @@ header img {
 }
 
 .buy-ticket {
-    width: 100px;
+    margin-top: 15px;
+    width: 150px;
     height: 40px;
+    font-size: 18px;
 }

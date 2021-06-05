@@ -1,7 +1,14 @@
 <?php 
 
+// connecting to the database
 require_once("db.php");
+$q = "  SELECT m.movie_id AS id, m.title AS title, m.avatar AS avatar,
+        m.year AS year, mg.genre AS genre, my.type AS type
+        FROM movie AS m
+        LEFT JOIN movie_genre AS mg ON m.genre_id = mg.genre_id
+        LEFT JOIN movie_type AS my ON m.type_id = my.type_id";
 
+$movies = $pdo->query($q)->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <!DOCTYPE html>
@@ -17,11 +24,11 @@ require_once("db.php");
 <body>
     <nav>
         <ul>
-            <li><a class="name" href="/"><i class="fa fa-film"></i> Heisenberg</a></li>
-            <li><a href="/">Главная</a></li>
-            <li><a href="/films.php">Фильмы</a></li>
-            <li><a href="/cartoons.php">Мультфильмы</a></li>
-            <li><a href="/all.php">Все показы</a></li>
+            <li><a class="name" href="index.php"><i class="fa fa-film"></i> Heisenberg</a></li>
+            <li><a href="index.php">Главная</a></li>
+            <li><a href="films.php">Фильмы</a></li>
+            <li><a href="cartoons.php">Мультфильмы</a></li>
+            <li><a href="all.php">Все показы</a></li>
         </ul>
     </nav>
 
@@ -30,112 +37,38 @@ require_once("db.php");
             <h2 class="title">Кинотеатр Heisenberg</h2>
             <img src="./img/cinema.jpg" alt="">
         </header>
+        <div class="space"></div>
         <div class="today">
-            <h2>Сегодня в кино</h2>
-            <?php 
-                $result = $pdo->query('SELECT * FROM movie_type');
-
-                while($row = $result->fetchAll(PDO::FETCH_ASSOC)) {
-                    
-                }
-            ?>
+            <h2>СЕГОДНЯ В КИНО</h2>
             <div class="movies flex">
-                <a href="#" class="movie">
-                    <img src="./img/film.jpg">
-                    <p class="title">Название Фильма</p>
-                    <div class="movie-info">
-                        <span class="year">2019,</span>
-                        <span class="type">фильм,</span>
-                        <span class="genre">боевик</span>
-                    </div>
-                </a>
-                <a href="#" class="movie">
-                    <img src="./img/film.jpg">
-                    <p class="title">Название Фильма</p>
-                    <div class="movie-info">
-                        <span class="year">2019,</span>
-                        <span class="type">фильм,</span>
-                        <span class="genre">боевик</span>
-                    </div>
-                </a>
-                <a href="#" class="movie">
-                    <img src="./img/film.jpg">
-                    <p class="title">Название Фильма</p>
-                    <div class="movie-info">
-                        <span class="year">2019,</span>
-                        <span class="type">фильм,</span>
-                        <span class="genre">боевик</span>
-                    </div>
-                </a>
+                <?php foreach($movies as $i => $movie) { ?>
+                    <a href="film.php?id=<?php echo $movie['id']; ?>" class="movie">
+                        <img src="./img/<?php echo $movie['avatar']; ?>">
+                        <p class="title"><?php echo $movie['title']; ?></p>
+                        <div class="movie-info">
+                            <span class="year"><?php echo $movie['year']; ?>,</span>
+                            <span class="type"><?php echo $movie['type']; ?>,</span>
+                            <span class="genre"><?php echo $movie['genre']; ?></span>
+                        </div>
+                    </a>
+                <?php } ?>
             </div>
         </div>
-
+        <div class="space"></div>
         <div class="other">
-            <h2>Другие показы</h2>
+        <h2>ОСТАЛЬНЫЕ ПОКАЗЫ</h2>
             <div class="movies flex">
-                <a href="#" class="movie">
-                    <img src="./img/film.jpg">
-                    <p class="title">Название Фильма</p>
-                    <div class="movie-info">
-                        <span class="year">2019,</span>
-                        <span class="type">фильм,</span>
-                        <span class="genre">боевик</span>
-                    </div>
-                </a>
-                <a href="#" class="movie">
-                    <img src="./img/film.jpg">
-                    <p class="title">Название Фильма</p>
-                    <div class="movie-info">
-                        <span class="year">2019,</span>
-                        <span class="type">фильм,</span>
-                        <span class="genre">боевик</span>
-                    </div>
-                </a>
-                <a href="#" class="movie">
-                    <img src="./img/film.jpg">
-                    <p class="title">Название Фильма</p>
-                    <div class="movie-info">
-                        <span class="year">2019,</span>
-                        <span class="type">фильм,</span>
-                        <span class="genre">боевик</span>
-                    </div>
-                </a>
-                <a href="#" class="movie">
-                    <img src="./img/film.jpg">
-                    <p class="title">Название Фильма</p>
-                    <div class="movie-info">
-                        <span class="year">2019,</span>
-                        <span class="type">фильм,</span>
-                        <span class="genre">боевик</span>
-                    </div>
-                </a>
-                <a href="#" class="movie">
-                    <img src="./img/film.jpg">
-                    <p class="title">Название Фильма</p>
-                    <div class="movie-info">
-                        <span class="year">2019,</span>
-                        <span class="type">фильм,</span>
-                        <span class="genre">боевик</span>
-                    </div>
-                </a>
-                <a href="#" class="movie">
-                    <img src="./img/film.jpg">
-                    <p class="title">Название Фильма</p>
-                    <div class="movie-info">
-                        <span class="year">2019,</span>
-                        <span class="type">фильм,</span>
-                        <span class="genre">боевик</span>
-                    </div>
-                </a>
-                <a href="#" class="movie">
-                    <img src="./img/film.jpg">
-                    <p class="title">Название Фильма</p>
-                    <div class="movie-info">
-                        <span class="year">2019,</span>
-                        <span class="type">фильм,</span>
-                        <span class="genre">боевик</span>
-                    </div>
-                </a>
+                <?php foreach($movies as $i => $movie) { ?>
+                    <a href="film.php?id=<?php echo $movie['id']; ?>" class="movie">
+                        <img src="./img/<?php echo $movie['avatar']; ?>">
+                        <p class="title"><?php echo $movie['title']; ?></p>
+                        <div class="movie-info">
+                            <span class="year"><?php echo $movie['year']; ?>,</span>
+                            <span class="type"><?php echo $movie['type']; ?>,</span>
+                            <span class="genre"><?php echo $movie['genre']; ?></span>
+                        </div>
+                    </a>
+                <?php } ?>
             </div>
         </div>
     </main>
