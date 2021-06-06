@@ -1,14 +1,24 @@
 <?php 
 
-// connecting to the database
-require_once("db.php");
-$q = "  SELECT m.movie_id AS id, m.title AS title, m.avatar AS avatar,
-        m.year AS year, mg.genre AS genre, my.type AS type
-        FROM movie AS m
-        LEFT JOIN movie_genre AS mg ON m.genre_id = mg.genre_id
-        LEFT JOIN movie_type AS my ON m.type_id = my.type_id";
+try {
+    // connecting to the database
+    require_once("db.php");
+    
+    $q = "  SELECT m.movie_id AS id, m.title AS title, m.avatar AS avatar,
+            m.year AS year, mg.genre AS genre, my.type AS type
+            FROM movie AS m
+            LEFT JOIN movie_genre AS mg ON m.genre_id = mg.genre_id
+            LEFT JOIN movie_type AS my ON m.type_id = my.type_id
+            WHERE m.movie_id <= 6";
 
-$movies = $pdo->query($q)->fetchAll(PDO::FETCH_ASSOC);
+    $movies = $pdo->query($q)->fetchAll(PDO::FETCH_ASSOC);
+
+    if(!$movies) {
+        throw new Error('Фильмы не найдены');
+    }
+} catch(Error $e) {
+    echo $e->getMessage();
+}
 ?>
 
 <!DOCTYPE html>

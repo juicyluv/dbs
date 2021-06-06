@@ -77,7 +77,15 @@ header img {
     position: absolute;
     left: 0;
     top: 0;
-    z-index: -1;
+    z-index: -10;
+}
+
+header .title {
+    font-weight: lighter;
+    color: #fff;
+    opacity: 80%;
+    font-size: 40px;
+    letter-spacing: 10px;
 }
 
 .space {
@@ -137,7 +145,10 @@ header img {
 }
 
 .other h2 {
+    font-size: 30px;
+    margin: 15px;
     text-align: center;
+    font-weight: lighter;
 }
 
 .film {
