@@ -1,3 +1,5 @@
+SET NAMES 'utf8';
+
 CREATE TABLE IF NOT EXISTS movie_genre(
     genre_id TINYINT(1) PRIMARY KEY AUTO_INCREMENT,
     genre VARCHAR(30) NOT NULL
@@ -14,12 +16,24 @@ CREATE TABLE IF NOT EXISTS movie_room(
     room TINYINT(1) NOT NULL
 ) ENGINE=INNODB;
 
+CREATE TABLE IF NOT EXISTS age_restriction(
+    age_id TINYINT(1) PRIMARY KEY AUTO_INCREMENT,
+    age TINYINT(1) NOT NULL
+) ENGINE=INNODB;
+
+CREATE TABLE IF NOT EXISTS movie_country(
+    country_id TINYINT(1) PRIMARY KEY AUTO_INCREMENT,
+    country VARCHAR(30) NOT NULL
+) ENGINE=INNODB;
+
 CREATE TABLE IF NOT EXISTS movie(
     movie_id INT PRIMARY KEY AUTO_INCREMENT,
     genre_id TINYINT(1) NOT NULL,
     type_id TINYINT(1) NOT NULL,
-    year YEAR NOT NULL,
+    age_id TINYINT(1) NOT NULL,
     room_id TINYINT(1) NOT NULL,
+    country_id TINYINT(1) NOT NULL,
+    year YEAR NOT NULL,
     title VARCHAR(50) NOT NULL,
     description VARCHAR(500) NOT NULL,
     starts_at DATETIME NOT NULL,
@@ -34,10 +48,18 @@ CREATE TABLE IF NOT EXISTS movie(
     REFERENCES movie_type(type_id),
 
     FOREIGN KEY (room_id)
-    REFERENCES movie_room(room_id)
+    REFERENCES movie_room(room_id),
+
+    FOREIGN KEY (age_id)
+    REFERENCES age_restriction(age_id),
+
+    FOREIGN KEY (country_id)
+    REFERENCES movie_country(country_id)
 )ENGINE=INNODB;
 
--- INITIALIZING TABLES
+/*****************************
+    INITIALIZING TABLES
+******************************/
 
 -- Types:
 INSERT INTO movie_type(type) VALUES('фильм');
@@ -65,12 +87,20 @@ INSERT INTO movie_genre(genre) VALUES('комедия');
 INSERT INTO movie_genre(genre) VALUES('фантастика');
 INSERT INTO movie_genre(genre) VALUES('драма');
 
+-- Ages:
+INSERT INTO age_restriction(age) VALUES(6);
+INSERT INTO age_restriction(age) VALUES(12);
+INSERT INTO age_restriction(age) VALUES(16);
+INSERT INTO age_restriction(age) VALUES(18);
+
+-- Countries:
+INSERT INTO movie_country(country) VALUES('Россия');
+INSERT INTO movie_country(country) VALUES('США');
+INSERT INTO movie_country(country) VALUES('Великобритания');
+INSERT INTO movie_country(country) VALUES('Германия');
+
 -- Movies:
-INSERT INTO movie(genre_id, type_id, year, room_id, title,
+INSERT INTO movie(genre_id, type_id, age_id, country_id, year, room_id, title,
  description, starts_at, ends_at, price, avatar)
-VALUES(1, 3, 2019, 5, 'Дитя погоды', 'Любовь и древняя магия в мегаполисе. Аниме-шедевр о ценности солнечного света от автора хита «Твое имя»',
-'2021-06-06 15:00:00', '2021-06-06 16:52:00', 300, 'Дитя погоды.png');
-INSERT INTO movie(genre_id, type_id, year, room_id, title,
- description, starts_at, ends_at, price, avatar)
-VALUES(1, 3, 2019, 5, 'Дитя погоды', 'Любовь и древняя магия в мегаполисе. Аниме-шедевр о ценности солнечного света от автора хита «Твое имя»',
+VALUES(1, 3, 2, 4, 2019, 5, 'Дитя погоды', 'Любовь и древняя магия в мегаполисе. Аниме-шедевр о ценности солнечного света от автора хита «Твое имя»',
 '2021-06-06 15:00:00', '2021-06-06 16:52:00', 300, 'Дитя погоды.png');

@@ -1,0 +1,6 @@
+DROP TABLE IF EXISTS movie;
+DROP TABLE IF EXISTS movie_type;
+DROP TABLE IF EXISTS movie_genre;
+DROP TABLE IF EXISTS movie_room;
+DROP TABLE IF EXISTS movie_country;
+DROP TABLE IF EXISTS age_restriction;

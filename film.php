@@ -15,15 +15,17 @@ try {
     $movie_id = $query['id'];
 
     $q = "SELECT m.title AS title, m.description AS description,
-        m.year AS year, m.price AS price,
+        m.year AS year, m.price AS price, 
         DATE_FORMAT(m.starts_at, '%Y-%m-%d %k:%i') AS start, 
         TIMEDIFF(m.ends_at, m.starts_at) AS duration,
-        m.avatar AS avatar, mg.genre AS genre,
-        mr.room AS room, my.type AS type
+        m.avatar AS avatar, mg.genre AS genre, ar.age AS age,
+        mc.country AS country, mr.room AS room, my.type AS type
         FROM movie AS m
         LEFT JOIN movie_genre AS mg ON m.genre_id = mg.genre_id
         LEFT JOIN movie_room AS mr ON m.room_id = mr.room_id
         LEFT JOIN movie_type AS my ON m.type_id = my.type_id
+        LEFT JOIN age_restriction AS ar ON m.age_id = ar.age_id
+        LEFT JOIN movie_country AS mc ON m.country_id = mc.country_id
         WHERE m.movie_id = $movie_id";
 
     $statement = $pdo->prepare($q);
@@ -51,6 +53,7 @@ try {
     <title>Кинотеатр Heisenberg</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="./css/style.css">
+    <link rel="icon" href="./img/favicon.ico" type="image/x-icon">
 </head>
 <body>
     <nav>
@@ -71,16 +74,21 @@ try {
                 <hr>
                 <p class="film-description"><?php echo $movie["description"]; ?></p>
                 <hr>
-                <p class="film-type">Тип: <?php echo $movie["type"]; ?></p>
-                <p class="film-genre">Жанр: <?php echo $movie["genre"]; ?></p>
-                <p class="film-year">Год: <?php echo $movie["year"]; ?></p>
-                <p class="film-start">Начало: <?php echo $movie["start"]; ?></p>
-                <p class="film-duration">Длительность: <?php echo $movie["duration"]; ?></p>
-                <p class="film-price">Цена: <?php echo $movie["price"]; ?>руб</p>
-                <p class="film-room">Зал: №<?php echo $movie["room"]; ?></p>
+                <div class="additional-info">
+                    <p class="film-type">Тип: <?php echo $movie["type"]; ?></p>
+                    <p class="film-genre">Жанр: <?php echo $movie["genre"]; ?></p>
+                    <p class="film-country">Страна: <?php echo $movie["country"]; ?></p>
+                    <p class="film-year">Год: <?php echo $movie["year"]; ?></p>
+                    <p class="film-start">Начало: <?php echo $movie["start"]; ?></p>
+                    <p class="film-duration">Длительность: <?php echo $movie["duration"]; ?></p>
+                    <p class="film-age">Возрастное ограничение: <?php echo $movie["age"]; ?>+</p>
+                    <p class="film-price">Цена: <?php echo $movie["price"]; ?>руб</p>
+                    <p class="film-room">Зал: №<?php echo $movie["room"]; ?></p>
+                </div>
                 <button class="buy-ticket">Купить билет</button>
             </div>
         </div>
+        <div class="space"></div>
     </main>
 </body>
 </html>

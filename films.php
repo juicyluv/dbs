@@ -1,3 +1,14 @@
+<?php 
+
+try {
+    // connecting to the database
+    require_once("db.php");
+} catch(Error $e) {
+    echo $e->getMessage();
+    die();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,6 +18,7 @@
     <title>Кинотеатр Heisenberg</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="./css/style.css">
+    <link rel="icon" href="./img/favicon.ico" type="image/x-icon">
 </head>
 <body>
     <nav>
@@ -22,49 +34,51 @@
     <main class="flex">
         <header class="flex">
             <h2 class="title">Кинотеатр Heisenberg</h2>
-            <img src="/img/cinema.jpg" alt="">
         </header>
 
-        <h2>Фильмы</h2>
+        <h2 class="movie-type">Фильмы</h2>
+        
+        <?php 
+            try {
+                $limit = 12;
+
+                $total = $pdo->query("SELECT COUNT(movie_id) FROM movie")->fetch(PDO::FETCH_COLUMN);
+                $amt = ceil($total / $limit);
+
+                $q = "  SELECT m.movie_id AS id, m.title AS title, m.avatar AS avatar,
+                        m.year AS year, mg.genre AS genre, my.type AS type
+                        FROM movie AS m
+                        LEFT JOIN movie_genre AS mg ON m.genre_id = mg.genre_id
+                        LEFT JOIN movie_type AS my ON m.type_id = my.type_id
+                        WHERE my.type = 'фильм'
+                        LIMIT $limit";
+
+                $movies = $pdo->query($q)->fetchAll(PDO::FETCH_ASSOC);
+            } catch(Error $e) {
+                echo $e->getMessage();
+            }
+        ?>
 
         <div class="movies flex">
-            <a href="#" class="movie">
-                <img src="/img/film.jpg">
-                <p class="title">Название Фильма</p>
-                <div class="movie-info">
-                    <span class="year">2019,</span>
-                    <span class="type">фильм,</span>
-                    <span class="genre">боевик</span>
-                </div>
-            </a>
-            <a href="#" class="movie">
-                <img src="/img/film.jpg">
-                <p class="title">Название Фильма</p>
-                <div class="movie-info">
-                    <span class="year">2019,</span>
-                    <span class="type">фильм,</span>
-                    <span class="genre">боевик</span>
-                </div>
-            </a>
-            <a href="#" class="movie">
-                <img src="/img/film.jpg">
-                <p class="title">Название Фильма</p>
-                <div class="movie-info">
-                    <span class="year">2019,</span>
-                    <span class="type">фильм,</span>
-                    <span class="genre">боевик</span>
-                </div>
-            </a>
-            <a href="#" class="movie">
-                <img src="/img/film.jpg">
-                <p class="title">Название Фильма</p>
-                <div class="movie-info">
-                    <span class="year">2019,</span>
-                    <span class="type">фильм,</span>
-                    <span class="genre">боевик</span>
-                </div>
-            </a>
+            <?php foreach($movies as $i => $movie) { ?>
+                    <a href="film.php?id=<?php echo $movie['id']; ?>" class="movie">
+                        <img src="./img/<?php echo $movie['avatar']; ?>">
+                        <p class="title"><?php echo $movie['title']; ?></p>
+                        <div class="movie-info">
+                            <span class="year"><?php echo $movie['year']; ?>,</span>
+                            <span class="type"><?php echo $movie['type']; ?>,</span>
+                            <span class="genre"><?php echo $movie['genre']; ?></span>
+                        </div>
+                    </a>
+                <?php } ?>
+        </div>
+        <div class="space"></div>
+        <div id="showmore-triger" data-page="1" data-max="<?php echo $amt; ?>">
+            <!-- <img src="ajax-loader.gif" alt=""> -->
         </div>
     </main>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="./js/films.js"></script>
+    <script src="./js/script.js"></script>
 </body>
 </html>
