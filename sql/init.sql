@@ -39,7 +39,6 @@ CREATE TABLE IF NOT EXISTS movie(
     starts_at DATETIME NOT NULL,
     ends_at DATETIME NOT NULL,
     price DECIMAL(10,2) NOT NULL,
-    avatar VARCHAR(50) NOT NULL DEFAULT 'default.png',
 
     FOREIGN KEY (genre_id)
     REFERENCES movie_genre(genre_id),
@@ -100,7 +99,11 @@ INSERT INTO movie_country(country) VALUES('Великобритания');
 INSERT INTO movie_country(country) VALUES('Германия');
 
 -- Movies:
-INSERT INTO movie(genre_id, type_id, age_id, country_id, year, room_id, title,
- description, starts_at, ends_at, price, avatar)
-VALUES(1, 3, 2, 4, 2019, 5, 'Дитя погоды', 'Любовь и древняя магия в мегаполисе. Аниме-шедевр о ценности солнечного света от автора хита «Твое имя»',
-'2021-06-06 15:00:00', '2021-06-06 16:52:00', 300, 'Дитя погоды.png');
+INSERT INTO movie
+VALUES(NULL, 1, 3, 2, 4, 2019, 5,
+    'Дитя погоды',
+    'Любовь и древняя магия в мегаполисе. Аниме-шедевр о ценности солнечного света от автора хита «Твое имя»',
+    '2021-06-06 15:00:00',
+    '2021-06-06 16:52:00',
+    300
+);

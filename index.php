@@ -12,27 +12,29 @@ try {
 
             $year = $genre = $country = "";
 
+            $where = "";
+
             if($_POST["year"] !== "all") {
-                $year = "WHERE year = ".$_POST["year"];
+                $where .= $where === "" ? "year = ".$_POST["year"] : " AND year = ".$_POST["year"];
             }
             if($_POST["genre"] !== "all") {
-                $year = "WHERE genre = ".$_POST["genre"];
+                $where .= $where === "" ? "genre = '".$_POST["genre"]."'" : " AND genre = '".$_POST["genre"]."'";
             }
             if($_POST["country"] !== "all") {
-                $year = "WHERE country = ".$_POST["country"];
+                $where .= $where === "" ? "country = '".$_POST["country"]."'" : " AND country = '".$_POST["country"]."'";
             }
 
             
-            $q = "SELECT m.movie_id AS id, m.title AS title, m.avatar AS avatar,
+            $q = "SELECT m.movie_id AS id, m.title AS title,
                   m.year AS year, mg.genre AS genre, my.type AS type
                   FROM movie AS m
                   LEFT JOIN movie_genre AS mg ON m.genre_id = mg.genre_id
-                  LEFT JOIN movie_type AS my ON m.type_id = my.type_id
-                  LIMIT 6";
+                  LEFT JOIN movie_type AS my ON m.type_id = my.type_id"
+                  . ($where === "" ? "WHERE ".$where : "") ." LIMIT 6";
 
         $movies = $pdo->query($q)->fetchAll(PDO::FETCH_ASSOC);
         } else {
-        $q = "  SELECT m.movie_id AS id, m.title AS title, m.avatar AS avatar,
+        $q = "  SELECT m.movie_id AS id, m.title AS title,
                 m.year AS year, mg.genre AS genre, my.type AS type
                 FROM movie AS m
                 LEFT JOIN movie_genre AS mg ON m.genre_id = mg.genre_id
@@ -69,14 +71,13 @@ try {
             <li><a href="index.php">Главная</a></li>
             <li><a href="films.php">Фильмы</a></li>
             <li><a href="cartoons.php">Мультфильмы</a></li>
-            <li><a href="all.php">Все показы</a></li>
+            <li><a href="add.php">Добавить фильм</a></li>
         </ul>
     </nav>
 
     <main class="flex">
         <header class="flex">
             <h2 class="title">Кинотеатр Heisenberg</h2>
-            <!-- <img src="./img/cinema.jpg" alt=""> -->
         </header>
         <div class="space"></div>
         <div class="today">
@@ -84,7 +85,7 @@ try {
             <div class="movies flex">
                 <?php foreach($movies as $i => $movie) { ?>
                     <a href="film.php?id=<?php echo $movie['id']; ?>" class="movie">
-                        <img src="./img/<?php echo $movie['avatar']; ?>">
+                        <img src="./img/movies/<?php echo $movie['title']; ?>.jpeg">
                         <p class="title"><?php echo $movie['title']; ?></p>
                         <div class="movie-info">
                             <span class="year"><?php echo $movie['year']; ?>,</span>
@@ -100,7 +101,7 @@ try {
         <h2>ДРУГИЕ ПОКАЗЫ</h2>
             <?php 
                 try {
-                    $q = "  SELECT m.movie_id AS id, m.title AS title, m.avatar AS avatar,
+                    $q = "  SELECT m.movie_id AS id, m.title AS title,
                             m.year AS year, mg.genre AS genre, my.type AS type
                             FROM movie AS m
                             LEFT JOIN movie_genre AS mg ON m.genre_id = mg.genre_id
@@ -162,7 +163,7 @@ try {
             <div class="movies flex">
                 <?php foreach($movies as $i => $movie) { ?>
                     <a href="film.php?id=<?php echo $movie['id']; ?>" class="movie">
-                        <img src="./img/<?php echo $movie['avatar']; ?>">
+                        <img src="./img/movies/<?php echo $movie['title']; ?>.jpeg">
                         <p class="title"><?php echo $movie['title']; ?></p>
                         <div class="movie-info">
                             <span class="year"><?php echo $movie['year']; ?>,</span>

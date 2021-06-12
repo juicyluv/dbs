@@ -27,7 +27,7 @@ try {
             <li><a href="index.php">Главная</a></li>
             <li><a href="films.php">Фильмы</a></li>
             <li><a href="cartoons.php">Мультфильмы</a></li>
-            <li><a href="all.php">Все показы</a></li>
+            <li><a href="add.php">Добавить фильм</a></li>
         </ul>
     </nav>
 
