@@ -18,7 +18,7 @@ try {
         m.year AS year, m.price AS price, 
         DATE_FORMAT(m.starts_at, '%Y-%m-%d %k:%i') AS start, 
         TIMEDIFF(m.ends_at, m.starts_at) AS duration,
-        m.avatar AS avatar, mg.genre AS genre, ar.age AS age,
+        mg.genre AS genre, ar.age AS age,
         mc.country AS country, mr.room AS room, my.type AS type
         FROM movie AS m
         LEFT JOIN movie_genre AS mg ON m.genre_id = mg.genre_id
@@ -68,7 +68,7 @@ try {
 
     <main>
         <div class="film">
-            <img class="film-avatar" src="./img/<?php echo $movie["avatar"]?>" alt="">
+            <img class="film-avatar" src="./img/movies/<?php echo $movie["title"]?>.jpeg" alt="">
             <div class="film-info">
                 <p class="film-title"><?php echo $movie["title"]; ?></p>
                 <hr>

@@ -33,10 +33,6 @@ try {
     </nav>
 
     <main class="flex">
-        <header class="flex">
-            <h2 class="title">Кинотеатр Heisenberg</h2>
-        </header>
-
         <h2 class="movie-type">Мультфильмы</h2>
 
         <?php 
@@ -46,7 +42,7 @@ try {
                 $total = $pdo->query("SELECT COUNT(movie_id) FROM movie")->fetch(PDO::FETCH_COLUMN);
                 $amt = ceil($total / $limit);
 
-                $q = "  SELECT m.movie_id AS id, m.title AS title, m.avatar AS avatar,
+                $q = "  SELECT m.movie_id AS id, m.title AS title,
                         m.year AS year, mg.genre AS genre, my.type AS type
                         FROM movie AS m
                         LEFT JOIN movie_genre AS mg ON m.genre_id = mg.genre_id
@@ -61,9 +57,12 @@ try {
         ?>
 
         <div class="movies flex">
+            <?php if(count($movies) === 0) { ?>
+                <h2>Нет результатов</h2>
+            <?php } else { ?>
             <?php foreach($movies as $i => $movie) { ?>
                     <a href="film.php?id=<?php echo $movie['id']; ?>" class="movie">
-                        <img src="./img/<?php echo $movie['avatar']; ?>">
+                        <img src="./img/<?php echo $movie['title']; ?>.jpeg">
                         <p class="title"><?php echo $movie['title']; ?></p>
                         <div class="movie-info">
                             <span class="year"><?php echo $movie['year']; ?>,</span>
@@ -71,15 +70,11 @@ try {
                             <span class="genre"><?php echo $movie['genre']; ?></span>
                         </div>
                     </a>
-                <?php } ?>
+                <?php } }?>
         </div>
         <div class="space"></div>
-        <div id="showmore-triger" data-page="1" data-max="<?php echo $amt; ?>">
-            <!-- <img src="ajax-loader.gif" alt=""> -->
-        </div>
     </main>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="./js/cartoons.js"></script>
-    <script src="./js/script.js"></script>
 </body>
 </html>
