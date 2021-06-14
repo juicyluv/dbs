@@ -47,6 +47,46 @@ if(isset($_POST['title']) && isset($_POST['description']) &&
         }
 }
 
+if(isset($_POST['new_age'])) {
+    $age = $_POST['new_age'];
+
+    $pdo->query("INSERT INTO age_restriction VALUES(NULL, $age)");
+    header('location: add.php');
+    die();
+}
+
+if(isset($_POST['new_country'])) {
+    $country = $_POST['new_country'];
+
+    $pdo->query("INSERT INTO movie_country VALUES(NULL, '$country')");
+    header('location: add.php');
+    die();
+}
+
+if(isset($_POST['new_type'])) {
+    $type = $_POST['new_type'];
+
+    $pdo->query("INSERT INTO movie_type VALUES(NULL, '$type')");
+    header('location: add.php');
+    die();
+}
+
+if(isset($_POST['new_room'])) {
+    $room = $_POST['new_room'];
+
+    $pdo->query("INSERT INTO movie_room VALUES(NULL, $room)");
+    header('location: add.php');
+    die();
+}
+
+if(isset($_POST['new_genre'])) {
+    $genre = $_POST['new_genre'];
+
+    $pdo->query("INSERT INTO movie_genre VALUES(NULL, '$genre')");
+    header('location: add.php');
+    die();
+}
+
 $q = "SELECT * FROM movie_type";
 $types = $pdo->query($q)->fetchAll(PDO::FETCH_ASSOC);
 
@@ -168,6 +208,51 @@ $ages = $pdo->query($q)->fetchAll(PDO::FETCH_ASSOC);
             <div class="option">
             <label for="image">Обложка: </label>
             <input required type="file" name="image">
+            </div>
+            <button type="submit">Добавить</button>
+        </form>
+
+        <form class="add-film-form" action="add.php" method="POST">
+            <h2>Добавить возрастное ограничение</h2>
+            <div class="option">
+                <label for="new_age">Возраст:</label>
+                <input required type="text" name="new_age">
+            </div>
+            <button type="submit">Добавить</button>
+        </form>
+
+        <form class="add-film-form" action="add.php" method="POST">
+            <h2>Добавить страну</h2>
+            <div class="option">
+                <label for="new_country">Страна:</label>
+                <input required type="text" name="new_country">
+            </div>
+            <button type="submit">Добавить</button>
+        </form>
+
+        <form class="add-film-form" action="add.php" method="POST">
+            <h2>Добавить тип</h2>
+            <div class="option">
+                <label for="new_type">Тип:</label>
+                <input required type="text" name="new_type">
+            </div>
+            <button type="submit">Добавить</button>
+        </form>
+
+        <form class="add-film-form" action="add.php" method="POST">
+            <h2>Добавить жанр</h2>
+            <div class="option">
+                <label for="new_genre">Жанр:</label>
+                <input required type="text" name="new_genre">
+            </div>
+            <button type="submit">Добавить</button>
+        </form>
+
+        <form class="add-film-form" action="add.php" method="POST">
+            <h2>Добавить комнату</h2>
+            <div class="option">
+                <label for="new_room">Номер комнаты:</label>
+                <input required type="text" name="new_room">
             </div>
             <button type="submit">Добавить</button>
         </form>
